@@ -10,12 +10,17 @@ namespace CustomerDataLayer.Tests.BusinessEntities
         {
             var customer = new Customer
             {
+                Id = 0,
+                FirstName = string.Empty,
+                LastName = string.Empty,
+                PhoneNumber = string.Empty,
+                Email = string.Empty,
                 TotalPurchasesAmount = 0
             };
 
             customer.Should().NotBeNull();
 
-            customer.CustomerId.Should().BeOfType(typeof(int));
+            customer.Id.Should().BeOfType(typeof(int));
             customer.FirstName.Should().BeOfType<string>();
             customer.LastName.Should().BeOfType<string>();
             customer.PhoneNumber.Should().BeOfType<string>();
@@ -28,11 +33,11 @@ namespace CustomerDataLayer.Tests.BusinessEntities
         {
             var customer = new Customer();
 
-            customer.CustomerId.Should().Be(0);
-            customer.FirstName.Should().Be(string.Empty);
+            customer.Id.Should().Be(0);
+            customer.FirstName.Should().Be(null);
             customer.LastName.Should().Be(string.Empty);
-            customer.PhoneNumber.Should().Be(string.Empty);
-            customer.Email.Should().Be(string.Empty);
+            customer.PhoneNumber.Should().Be(null);
+            customer.Email.Should().Be(null);
             customer.TotalPurchasesAmount.Should().Be(null);
         }
 
@@ -41,10 +46,10 @@ namespace CustomerDataLayer.Tests.BusinessEntities
         {
             var customer = new Customer
             {
-                CustomerId = 1
+                Id = 1
             };
 
-            customer.CustomerId.Should().Be(1);
+            customer.Id.Should().Be(1);
         }
 
         [Fact]

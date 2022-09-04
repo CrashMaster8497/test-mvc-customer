@@ -15,11 +15,22 @@ namespace CustomerDataLayer.Tests.BusinessEntities
         [Fact]
         public void ShouldBeAbleToCreateAddress()
         {
-            var address = new Address();
+            var address = new Address
+            {
+                Id = 0,
+                CustomerId = 0,
+                AddressLine = string.Empty,
+                AddressLine2 = string.Empty,
+                AddressType = AddressType.Shipping,
+                City = string.Empty,
+                PostalCode = string.Empty,
+                State = string.Empty,
+                Country = string.Empty
+            };
 
             address.Should().NotBeNull();
 
-            address.AddressId.Should().BeOfType(typeof(int));
+            address.Id.Should().BeOfType(typeof(int));
             address.CustomerId.Should().BeOfType(typeof(int));
             address.AddressLine.Should().BeOfType<string>();
             address.AddressLine2.Should().BeOfType<string>();
@@ -35,10 +46,10 @@ namespace CustomerDataLayer.Tests.BusinessEntities
         {
             var address = new Address();
 
-            address.AddressId.Should().Be(0);
+            address.Id.Should().Be(0);
             address.CustomerId.Should().Be(0);
             address.AddressLine.Should().Be(string.Empty);
-            address.AddressLine2.Should().Be(string.Empty);
+            address.AddressLine2.Should().Be(null);
             address.AddressType.Should().Be(AddressType.Shipping);
             address.City.Should().Be(string.Empty);
             address.PostalCode.Should().Be(string.Empty);
@@ -51,10 +62,10 @@ namespace CustomerDataLayer.Tests.BusinessEntities
         {
             var address = new Address
             {
-                AddressId = 1
+                Id = 1
             };
 
-            address.AddressId.Should().Be(1);
+            address.Id.Should().Be(1);
         }
 
         [Fact]

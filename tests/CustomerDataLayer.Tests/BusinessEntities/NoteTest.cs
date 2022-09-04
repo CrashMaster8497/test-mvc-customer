@@ -8,11 +8,16 @@ namespace CustomerDataLayer.Tests.BusinessEntities
         [Fact]
         public void ShouldBeAbleToCreateNote()
         {
-            var note = new Note();
+            var note = new Note
+            {
+                Id = 0,
+                CustomerId = 0,
+                Text = string.Empty
+            };
 
             note.Should().NotBeNull();
 
-            note.NoteId.Should().BeOfType(typeof(int));
+            note.Id.Should().BeOfType(typeof(int));
             note.CustomerId.Should().BeOfType(typeof(int));
             note.Text.Should().BeOfType<string>();
         }
@@ -22,7 +27,7 @@ namespace CustomerDataLayer.Tests.BusinessEntities
         {
             var note = new Note();
 
-            note.NoteId.Should().Be(0);
+            note.Id.Should().Be(0);
             note.CustomerId.Should().Be(0);
             note.Text.Should().Be(string.Empty);
         }
@@ -32,10 +37,10 @@ namespace CustomerDataLayer.Tests.BusinessEntities
         {
             var note = new Note
             {
-                NoteId = 1
+                Id = 1
             };
 
-            note.NoteId.Should().Be(1);
+            note.Id.Should().Be(1);
         }
 
         [Fact]

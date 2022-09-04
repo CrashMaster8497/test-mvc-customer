@@ -1,12 +1,12 @@
 ﻿namespace CustomerDataLayer.BusinessEntities
 {
-    public class Customer
+    public class Customer : Entity
     {
-        public int CustomerId { get; set; } = 0;
-        public string FirstName { get; set; } = string.Empty;
+        public override int Id { get; set; } = 0;
+        public string? FirstName { get; set; } = null;
         public string LastName { get; set; } = string.Empty;
-        public string PhoneNumber { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
+        public string? PhoneNumber { get; set; } = null;
+        public string? Email { get; set; } = null;
         public decimal? TotalPurchasesAmount { get; set; } = null;
     }
 }
