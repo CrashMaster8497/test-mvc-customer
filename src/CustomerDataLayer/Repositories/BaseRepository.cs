@@ -25,7 +25,7 @@ namespace CustomerDataLayer.Repositories
             return connection;
         }
 
-        public int? Create(Entity entity)
+        public virtual int? Create(Entity entity)
         {
             using var connection = GetConnection();
 
@@ -41,7 +41,7 @@ namespace CustomerDataLayer.Repositories
             return reader.Read() ? (int)reader[KeyColumn] : null;
         }
 
-        public Entity? Read(int id)
+        public virtual Entity? Read(int id)
         {
             using var connection = GetConnection();
 
@@ -56,7 +56,7 @@ namespace CustomerDataLayer.Repositories
             return reader.Read() ? GetEntity(reader) : null;
         }
 
-        public bool Update(Entity entity)
+        public virtual bool Update(Entity entity)
         {
             using var connection = GetConnection();
 
@@ -71,7 +71,7 @@ namespace CustomerDataLayer.Repositories
             return command.ExecuteNonQuery() > 0;
         }
 
-        public bool Delete(int id)
+        public virtual bool Delete(int id)
         {
             using var connection = GetConnection();
 
@@ -84,7 +84,7 @@ namespace CustomerDataLayer.Repositories
             return command.ExecuteNonQuery() > 0;
         }
 
-        public List<Entity> ReadAll()
+        public virtual List<Entity> ReadAll()
         {
             using var connection = GetConnection();
 
@@ -103,7 +103,7 @@ namespace CustomerDataLayer.Repositories
             return entities;
         }
 
-        public int DeleteAll()
+        public virtual int DeleteAll()
         {
             using var connection = GetConnection();
 
@@ -119,7 +119,7 @@ namespace CustomerDataLayer.Repositories
             return command.ExecuteNonQuery();
         }
 
-        public int Count()
+        public virtual int Count()
         {
             using var connection = GetConnection();
 
@@ -130,7 +130,7 @@ namespace CustomerDataLayer.Repositories
             return (int)command.ExecuteScalar();
         }
 
-        public List<Entity> Read(int offset, int count)
+        public virtual List<Entity> Read(int offset, int count)
         {
             if (count <= 0)
             {
