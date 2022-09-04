@@ -41,7 +41,7 @@ namespace CustomerDataLayer.Integration.Tests.Repositories
         {
             BaseRepositoryFixture.DeleteAll(entity);
 
-            entity.Id = BaseRepositoryFixture.Create(entity)!.Value;
+            BaseRepositoryFixture.Create(entity);
 
             var readEntity = BaseRepositoryFixture.Read(entity);
 
@@ -54,7 +54,7 @@ namespace CustomerDataLayer.Integration.Tests.Repositories
         {
             BaseRepositoryFixture.DeleteAll(entity);
 
-            entity.Id = BaseRepositoryFixture.Create(entity)!.Value;
+            BaseRepositoryFixture.Create(entity);
 
             var modifiedEntity = BaseRepositoryFixture.Read(entity);
             BaseRepositoryFixture.ModifyEntity(entity);
@@ -72,7 +72,7 @@ namespace CustomerDataLayer.Integration.Tests.Repositories
         {
             BaseRepositoryFixture.DeleteAll(entity);
 
-            entity.Id = BaseRepositoryFixture.Create(entity)!.Value;
+            BaseRepositoryFixture.Create(entity);
 
             bool isDeleted = BaseRepositoryFixture.Delete(entity);
             var readEntity = BaseRepositoryFixture.Read(entity);
@@ -89,7 +89,7 @@ namespace CustomerDataLayer.Integration.Tests.Repositories
 
             foreach (var entity in entities)
             {
-                entity.Id = BaseRepositoryFixture.Create(entity)!.Value;
+                BaseRepositoryFixture.Create(entity);
             }
 
             var readEntities = BaseRepositoryFixture.ReadAll(entities[0]);
@@ -139,7 +139,7 @@ namespace CustomerDataLayer.Integration.Tests.Repositories
 
             foreach (var entity in entities)
             {
-                entity.Id = BaseRepositoryFixture.Create(entity)!.Value;
+                BaseRepositoryFixture.Create(entity);
             }
 
             var readEntities = BaseRepositoryFixture.Read(entities[0], offset, count);
@@ -195,27 +195,27 @@ namespace CustomerDataLayer.Integration.Tests.Repositories
         {
             yield return new object[]
             {
-                Enumerable.Range(1, 1).Select(_ => (Entity)CustomerRepositoryFixture.GetMinCustomer()).ToList()
+                Enumerable.Range(0, 1).Select(_ => (Entity)CustomerRepositoryFixture.GetMinCustomer()).ToList()
             };
             yield return new object[]
             {
-                Enumerable.Range(1, 3).Select(_ => (Entity)CustomerRepositoryFixture.GetMinCustomer()).ToList()
+                Enumerable.Range(0, 3).Select(_ => (Entity)CustomerRepositoryFixture.GetMinCustomer()).ToList()
             };
             yield return new object[]
             {
-                Enumerable.Range(1, 1).Select(_ => (Entity)AddressRepositoryFixture.GetMinAddress()).ToList()
+                Enumerable.Range(0, 1).Select(_ => (Entity)AddressRepositoryFixture.GetMinAddress()).ToList()
             };
             yield return new object[]
             {
-                Enumerable.Range(1, 3).Select(_ => (Entity)AddressRepositoryFixture.GetMinAddress()).ToList()
+                Enumerable.Range(0, 3).Select(_ => (Entity)AddressRepositoryFixture.GetMinAddress()).ToList()
             };
             yield return new object[]
             {
-                Enumerable.Range(1, 1).Select(_ => (Entity)NoteRepositoryFixture.GetMinNote()).ToList()
+                Enumerable.Range(0, 1).Select(_ => (Entity)NoteRepositoryFixture.GetMinNote()).ToList()
             };
             yield return new object[]
             {
-                Enumerable.Range(1, 3).Select(_ => (Entity)NoteRepositoryFixture.GetMinNote()).ToList()
+                Enumerable.Range(0, 3).Select(_ => (Entity)NoteRepositoryFixture.GetMinNote()).ToList()
             };
         }
 
@@ -223,31 +223,31 @@ namespace CustomerDataLayer.Integration.Tests.Repositories
         {
             yield return new object[]
             {
-                Enumerable.Range(1, 3).Select(_ => (Entity)CustomerRepositoryFixture.GetMinCustomer()).ToList(),
+                Enumerable.Range(0, 3).Select(_ => (Entity)CustomerRepositoryFixture.GetMinCustomer()).ToList(),
                 1,
                 1
             };
             yield return new object[]
             {
-                Enumerable.Range(1, 3).Select(_ => (Entity)AddressRepositoryFixture.GetMinAddress()).ToList(),
+                Enumerable.Range(0, 3).Select(_ => (Entity)AddressRepositoryFixture.GetMinAddress()).ToList(),
                 1,
                 4
             };
             yield return new object[]
             {
-                Enumerable.Range(1, 3).Select(_ => (Entity)NoteRepositoryFixture.GetMinNote()).ToList(),
+                Enumerable.Range(0, 3).Select(_ => (Entity)NoteRepositoryFixture.GetMinNote()).ToList(),
                 0,
                 2
             };
             yield return new object[]
             {
-                Enumerable.Range(1, 3).Select(_ => (Entity)CustomerRepositoryFixture.GetMinCustomer()).ToList(),
+                Enumerable.Range(0, 3).Select(_ => (Entity)CustomerRepositoryFixture.GetMinCustomer()).ToList(),
                 1,
                 0
             };
             yield return new object[]
             {
-                Enumerable.Range(1, 3).Select(_ => (Entity)CustomerRepositoryFixture.GetMinCustomer()).ToList(),
+                Enumerable.Range(0, 3).Select(_ => (Entity)CustomerRepositoryFixture.GetMinCustomer()).ToList(),
                 4,
                 1
             };

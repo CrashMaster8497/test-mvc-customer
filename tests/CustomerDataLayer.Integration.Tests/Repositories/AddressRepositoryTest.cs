@@ -1,4 +1,5 @@
 ﻿using CustomerDataLayer.BusinessEntities;
+using CustomerDataLayer.Integration.Tests.Repositories.Fixtures;
 using CustomerDataLayer.Repositories;
 using FluentAssertions;
 
@@ -43,6 +44,75 @@ namespace CustomerDataLayer.Integration.Tests.Repositories
 
             nonKeyParameters.Should().NotBeNull();
             nonKeyParameters.Length.Should().Be(8);
+        }
+
+        [Theory]
+        [MemberData(nameof(GenerateAddressGroups))]
+        public void ShouldBeAbleToReadByCustomerId(List<List<Address>> addressesList)
+        {
+            var customers = new List<Customer>();
+            foreach (var addresses in addressesList)
+            {
+                var customer = CustomerRepositoryFixture.GetMinCustomer();
+                CustomerRepositoryFixture.Create(customer);
+                customers.Add(customer);
+
+                foreach (var address in addresses)
+                {
+                    AddressRepositoryFixture.Create(address, customer);
+                }
+            }
+
+            for (int i = 0; i < addressesList.Count; i++)
+            {
+                var readAddresses = AddressRepositoryFixture.ReadByCustomerId(customers[i].Id);
+
+                readAddresses.Should().BeEquivalentTo(addressesList[i]);
+            }
+        }
+
+        [Theory]
+        [MemberData(nameof(GenerateAddressGroups))]
+        public void ShouldBeAbleToDeleteByCustomerId(List<List<Address>> addressesList)
+        {
+            var customers = new List<Customer>();
+            foreach (var addresses in addressesList)
+            {
+                var customer = CustomerRepositoryFixture.GetMinCustomer();
+                CustomerRepositoryFixture.Create(customer);
+                customers.Add(customer);
+
+                foreach (var address in addresses)
+                {
+                    AddressRepositoryFixture.Create(address, customer);
+                }
+            }
+
+            for (int i = 0; i < addressesList.Count; i++)
+            {
+                int affectedRows = AddressRepositoryFixture.DeleteByCustomerId(customers[i].Id);
+                var deletedAddresses = AddressRepositoryFixture.ReadByCustomerId(customers[i].Id);
+
+                affectedRows.Should().Be(addressesList[i].Count);
+                deletedAddresses.Should().BeEmpty();
+
+                for (int j = i + 1; j < addressesList.Count; j++)
+                {
+                    var notDeletedAddresses = AddressRepositoryFixture.ReadByCustomerId(customers[j].Id);
+
+                    notDeletedAddresses.Should().BeEquivalentTo(addressesList[j]);
+                }
+            }
+        }
+
+        private static IEnumerable<object[]> GenerateAddressGroups()
+        {
+            yield return new object[] { new List<List<Address>>
+            {
+                Enumerable.Range(0, 1).Select(_ => AddressRepositoryFixture.GetMinAddress()).ToList(),
+                Enumerable.Range(0, 0).Select(_ => AddressRepositoryFixture.GetMinAddress()).ToList(),
+                Enumerable.Range(0, 3).Select(_ => AddressRepositoryFixture.GetMinAddress()).ToList()
+            } };
         }
     }
 }

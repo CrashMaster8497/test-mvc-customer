@@ -43,28 +43,36 @@ namespace CustomerDataLayer.Integration.Tests.Repositories.Fixtures
             address.AddressLine2 = "New Line2";
         }
 
-        public static int? Create(Address address)
+        public static int? Create(Address address, Customer customer)
         {
-            var customer = CustomerRepositoryFixture.GetMinCustomer();
-            customer.Id = CustomerRepositoryFixture.Create(customer)!.Value;
             address.CustomerId = customer.Id;
 
             var repository = new AddressRepository();
-            return repository.Create(address);
+
+            int? id = repository.Create(address);
+            address.Id = id ?? address.Id;
+
+            return id;
         }
 
-        public static List<int> Create(List<Address> addresses)
+        public static int? Create(Address address)
         {
             var customer = CustomerRepositoryFixture.GetMinCustomer();
-            customer.Id = CustomerRepositoryFixture.Create(customer)!.Value;
-            foreach (var address in addresses)
-            {
-                address.CustomerId = customer.Id;
-            }
+            CustomerRepositoryFixture.Create(customer);
 
-            var ids = new List<int>();
-            ids.AddRange(addresses.Select(address => Create(address)!.Value));
-            return ids;
+            return Create(address, customer);
+        }
+
+        public static List<Address> ReadByCustomerId(int customerId)
+        {
+            var repository = new AddressRepository();
+            return repository.ReadByCustomerId(customerId);
+        }
+
+        public static int DeleteByCustomerId(int customerId)
+        {
+            var repository = new AddressRepository();
+            return repository.DeleteByCustomerId(customerId);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using System.Data;
+﻿using CustomerDataLayer.BusinessEntities;
+using System.Data;
 using System.Data.SqlClient;
-using CustomerDataLayer.BusinessEntities;
 
 namespace CustomerDataLayer.Repositories
 {

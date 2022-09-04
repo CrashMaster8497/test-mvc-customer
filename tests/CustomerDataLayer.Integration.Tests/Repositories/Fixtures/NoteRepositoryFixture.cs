@@ -31,29 +31,36 @@ namespace CustomerDataLayer.Integration.Tests.Repositories.Fixtures
             note.Text = "New Text";
         }
 
+        public static int? Create(Note note, Customer customer)
+        {
+            note.CustomerId = customer.Id;
+
+            var repository = new NoteRepository();
+
+            int? id = repository.Create(note);
+            note.Id = id ?? note.Id;
+
+            return id;
+        }
+
         public static int? Create(Note note)
         {
             var customer = CustomerRepositoryFixture.GetMinCustomer();
-            customer.Id = CustomerRepositoryFixture.Create(customer)!.Value;
-            note.CustomerId = customer.Id;
+            CustomerRepositoryFixture.Create(customer);
 
-
-            var repository = new NoteRepository();
-            return repository.Create(note);
+            return Create(note, customer);
         }
 
-        public static List<int> Create(List<Note> notes)
+        public static List<Note> ReadByCustomerId(int customerId)
         {
-            var customer = CustomerRepositoryFixture.GetMinCustomer();
-            customer.Id = CustomerRepositoryFixture.Create(customer)!.Value;
-            foreach (var note in notes)
-            {
-                note.CustomerId = customer.Id;
-            }
+            var repository = new NoteRepository();
+            return repository.ReadByCustomerId(customerId);
+        }
 
-            var ids = new List<int>();
-            ids.AddRange(notes.Select(note => Create(note)!.Value));
-            return ids;
+        public static int DeleteByCustomerId(int customerId)
+        {
+            var repository = new NoteRepository();
+            return repository.DeleteByCustomerId(customerId);
         }
     }
 }

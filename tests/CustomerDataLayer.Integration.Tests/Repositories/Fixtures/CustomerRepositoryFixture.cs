@@ -39,7 +39,11 @@ namespace CustomerDataLayer.Integration.Tests.Repositories.Fixtures
         public static int? Create(Customer customer)
         {
             var repository = new CustomerRepository();
-            return repository.Create(customer);
+
+            int? id = repository.Create(customer);
+            customer.Id = id ?? customer.Id;
+
+            return id;
         }
     }
 }

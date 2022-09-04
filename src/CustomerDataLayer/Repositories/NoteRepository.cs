@@ -1,6 +1,6 @@
-﻿using System.Data;
+﻿using CustomerDataLayer.BusinessEntities;
+using System.Data;
 using System.Data.SqlClient;
-using CustomerDataLayer.BusinessEntities;
 
 namespace CustomerDataLayer.Repositories
 {
@@ -43,6 +43,42 @@ namespace CustomerDataLayer.Repositories
                 CustomerId = (int)reader["CustomerId"],
                 Text = (string)reader["Text"]
             };
+        }
+
+        public List<Note> ReadByCustomerId(int customerId)
+        {
+            using var connection = GetConnection();
+
+            var command = new SqlCommand(
+                $"SELECT * FROM [{TableName}] " +
+                "WHERE CustomerId = @CustomerId",
+                connection);
+            command.Parameters.Add(
+                new SqlParameter("@CustomerId", SqlDbType.Int) { Value = customerId });
+
+            using var reader = command.ExecuteReader();
+
+            var addresses = new List<Note>();
+            while (reader.Read())
+            {
+                addresses.Add((Note)GetEntity(reader));
+            }
+
+            return addresses;
+        }
+
+        public int DeleteByCustomerId(int customerId)
+        {
+            using var connection = GetConnection();
+
+            var command = new SqlCommand(
+                $"DELETE FROM [{TableName}] " +
+                "WHERE CustomerId = @CustomerId",
+                connection);
+            command.Parameters.Add(
+                new SqlParameter("@CustomerId", SqlDbType.Int) { Value = customerId });
+
+            return command.ExecuteNonQuery();
         }
     }
 }
