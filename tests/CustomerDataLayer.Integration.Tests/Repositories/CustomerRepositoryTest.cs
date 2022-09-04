@@ -13,8 +13,7 @@ namespace CustomerDataLayer.Integration.Tests.Repositories
 
             repository.Should().NotBeNull();
             repository.TableName.Should().Be("Customer");
-            //repository.UsedByTables.Should().Contain("Address");
-            //repository.UsedByTables.Should().Contain("Note");
+            repository.UsedByTables.Length.Should().Be(2);
             repository.KeyColumn.Should().Be("CustomerId");
             repository.NonKeyColumns.Should().Contain(new[] { "FirstName", "LastName", "PhoneNumber", "Email", "TotalPurchasesAmount" });
         }

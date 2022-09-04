@@ -1,7 +1,7 @@
 ﻿using CustomerDataLayer.BusinessEntities;
 using CustomerDataLayer.Repositories;
 
-namespace CustomerDataLayer.Integration.Tests.Repositories
+namespace CustomerDataLayer.Integration.Tests.Repositories.Fixtures
 {
     public class AddressRepositoryFixture
     {

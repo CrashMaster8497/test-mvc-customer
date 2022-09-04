@@ -1,4 +1,5 @@
 ﻿using CustomerDataLayer.BusinessEntities;
+using CustomerDataLayer.Integration.Tests.Repositories.Fixtures;
 using CustomerDataLayer.Repositories;
 using FluentAssertions;
 using System.Data;
